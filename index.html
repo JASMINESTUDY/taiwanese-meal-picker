@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3ead6">
+    <meta name="description" content="用一點小運氣，挑一道今天想吃的台灣味。">
+    <title>今天呷啥？｜台灣好味道抽籤所</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23f3ead6' stroke='%23c84835' stroke-width='2'/%3E%3Ctext x='20' y='27' text-anchor='middle' font-size='22' fill='%23c84835'%3E食%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="masthead">
+        <div class="brand-lockup" aria-label="台灣好味道抽籤所">
+          <span class="brand-seal" aria-hidden="true">食</span>
+          <span class="brand-name">台灣好味道抽籤所</span>
+        </div>
+        <span class="masthead-note">吃飯這件事，交給一點運氣。</span>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">TAIWAN ON THE TABLE</p>
+          <h1 id="page-title">今天呷啥？</h1>
+          <p class="intro-copy">從熟悉的台灣味裡，抽一道今天的好料。想吃什麼，先放進口袋名單。</p>
+        </div>
+        <div class="stamp"><span class="stamp-dot" aria-hidden="true"></span><span>不必想太久，開飯就對了</span></div>
+      </section>
+
+      <div class="workspace">
+        <section class="panel menu-panel" aria-labelledby="menu-title">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">先看看今天的胃口</p>
+              <h2 id="menu-title">挑選候選菜色</h2>
+            </div>
+            <span class="count-pill" id="menu-count">共 0 道</span>
+          </div>
+
+          <div class="mode-switch" role="group" aria-label="選擇抽籤範圍">
+            <button class="mode-button" id="all-mode" type="button" aria-pressed="true">全部好味道</button>
+            <button class="mode-button" id="pool-mode" type="button" aria-pressed="false">只抽我的口袋名單</button>
+          </div>
+
+          <div class="menu-toolbar">
+            <div class="filter-list" role="group" aria-label="依菜色分類篩選">
+              <button class="filter-button" type="button" data-filter="全部" aria-pressed="true">全部</button>
+              <button class="filter-button" type="button" data-filter="飯麵" aria-pressed="false">飯麵</button>
+              <button class="filter-button" type="button" data-filter="小吃" aria-pressed="false">小吃</button>
+              <button class="filter-button" type="button" data-filter="湯品" aria-pressed="false">湯品</button>
+              <button class="filter-button" type="button" data-filter="其他" aria-pressed="false">其他</button>
+            </div>
+            <button class="text-action" id="select-all" type="button">全選</button>
+          </div>
+
+          <div class="meal-list" id="meal-list" aria-label="內建台灣菜色"></div>
+          <p class="selection-note">勾選喜歡的菜色，再切換到「只抽我的口袋名單」。全部好味道會抽取完整菜單。</p>
+        </section>
+
+        <div class="right-column">
+          <section class="pick-card" aria-labelledby="recommend-title">
+            <p class="recommend-label" id="recommend-title">今日推薦</p>
+            <svg class="pick-illustration" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+              <circle cx="40" cy="40" r="34" stroke="#E8BD69" stroke-width="1.4"/>
+              <circle cx="40" cy="40" r="25" stroke="#E8BD69" stroke-width="1.1"/>
+              <path d="M18 43c2.2 11.2 10.9 18 22 18s19.8-6.8 22-18H18Z" fill="#E8BD69"/>
+              <path d="M23 37c0-8.7 7.6-15.8 17-15.8S57 28.3 57 37H23Z" fill="#F3EAD6"/>
+              <path d="M28 34c4.8 2.7 8.4 2.7 12.2 0 4.2-2.9 8.1-2.4 12.8.3" stroke="#C84835" stroke-width="2" stroke-linecap="round"/>
+              <path d="M27 49h26" stroke="#315C4A" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <p class="pick-name" id="pick-name" aria-live="polite" aria-atomic="true">還沒決定</p>
+            <p class="pick-caption" id="pick-caption">按下抽一個，讓今天的好味道自己出現。</p>
+            <button class="draw-button" id="draw-button" type="button">
+              <span>幫我決定</span><span class="draw-arrow" aria-hidden="true">→</span>
+            </button>
+            <p class="feedback" id="draw-feedback" role="status" aria-live="polite"></p>
+          </section>
+
+          <section class="panel custom-panel" aria-labelledby="custom-title">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">私房口袋名單</p>
+                <h2 id="custom-title">加一道你想吃的</h2>
+              </div>
+            </div>
+            <p class="custom-intro">可以一次輸入好幾道，用逗號或頓號分開。</p>
+            <form class="custom-entry" id="custom-form">
+              <label for="custom-input" class="sr-only">輸入自訂菜名，可用逗號分隔多道菜</label>
+              <input class="custom-input" id="custom-input" name="meals" type="text" maxlength="120" autocomplete="off" placeholder="例如：滷肉飯、鹽酥雞" aria-describedby="custom-feedback">
+              <button class="add-button" type="submit">加入名單</button>
+            </form>
+            <p class="custom-feedback" id="custom-feedback" role="status" aria-live="polite"></p>
+            <div class="candidate-divider"></div>
+            <div class="candidate-heading">
+              <strong>我的口袋名單</strong>
+              <span id="candidate-count">0 道</span>
+            </div>
+            <div class="candidate-chips" id="candidate-list" aria-label="已加入口袋名單的菜色"></div>
+          </section>
+        </div>
+      </div>
+
+      <footer class="footer-note">
+        <span>一日三餐，台灣味都在這裡。</span>
+        <span>今日好運，從開飯開始。</span>
+      </footer>
+    </main>
+  </body>
+</html>
